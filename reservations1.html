@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BoroughBound Reservations</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<style>
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f8fafc;
+    margin: 0;
+}
+
+header {
+    background: white;
+    padding: 1.5rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.logo img { height: 45px; }
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+    padding: 3rem 2rem;
+}
+
+.card {
+    background: white;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    margin-bottom: 2rem;
+}
+
+h2 {
+    margin-bottom: 2rem;
+}
+
+input, select {
+    padding: 0.7rem;
+    width: 100%;
+    margin: 0.5rem 0 1rem 0;
+    border-radius: 8px;
+    border: 1px solid #e2e8f0;
+}
+
+button {
+    padding: 0.7rem 1.4rem;
+    border: none;
+    border-radius: 30px;
+    background: #2563eb;
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #1d4ed8;
+}
+
+footer {
+    text-align: center;
+    padding: 2rem;
+    color: #64748b;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        <img src="insert image location here" alt="BoroughBound Logo">
+    </div>
+    <div><strong>Reservations</strong></div>
+</header>
+
+<div class="container">
+
+    <h2>Book a Ride</h2>
+
+    <div class="card">
+        <label>Pickup Location</label>
+        <input type="text" id="pickup" placeholder="Enter pickup location">
+
+        <label>Dropoff Location</label>
+        <input type="text" id="dropoff" placeholder="Enter dropoff location">
+
+        <label>Date</label>
+        <input type="date" id="date">
+
+        <label>Time</label>
+        <input type="time" id="time">
+
+        <button onclick="createReservation()">Create Reservation</button>
+
+        <div id="reservationResult" style="margin-top:1rem;"></div>
+    </div>
+
+    <div class="card">
+        <h3>Your Reservations</h3>
+        <button onclick="loadReservations()">Load My Reservations</button>
+        <div id="reservationList" style="margin-top:1rem;"></div>
+    </div>
+
+</div>
+
+<footer>
+© 2026 BoroughBound Inc.
+</footer>
+
+<script>
+function get_user(){
+    var data = {{ data|tojson }};
+    return data.id;
+}
+
+function createReservation() {
+    const pickup = document.getElementById("pickup").value;
+    const dropoff = document.getElementById("dropoff").value;
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+
+    if(!pickup || !dropoff || !date || !time){
+        document.getElementById("reservationResult").innerHTML = "Please fill out all fields.";
+        return;
+    }
+
+    $.getJSON('/create-reservation', {
+        id: get_user(),
+        pickup: pickup,
+        dropoff: dropoff,
+        date: date,
+        time: time
+    }, function(response){
+        document.getElementById("reservationResult").innerHTML =
+            "Reservation successfully created.";
+    });
+}
+
+function loadReservations() {
+    $.getJSON('/get-reservations?id=' + get_user(), function(response){
+        let reservations = response.data.reservations;
+
+        if(reservations.length === 0){
+            document.getElementById("reservationList").innerHTML =
+                "No reservations found.";
+            return;
+        }
+
+        let html = "<ul>";
+        reservations.forEach(r => {
+            html += `<li>
+                <b>${r[2]}</b> → ${r[3]} |
+                ${r[4]} ${r[5]} |
+                $${r[8]}
+            </li>`;
+        });
+        html += "</ul>";
+
+        document.getElementById("reservationList").innerHTML = html;
+    });
+}
+</script>
+
+</body>
+</html>
