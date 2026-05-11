@@ -10,7 +10,7 @@ We know exactly where the subway gaps are and how to
 navigate around the gridlock. No corporate fluff, just
 local drivers getting you across the five boroughs
 without the 'tourist' tax. We’re New York’s ride, not an
-algorithm's."
+algorithm's.
 
 Tools intended for use:
 Python 3.14.2: Backend logic & API integration
