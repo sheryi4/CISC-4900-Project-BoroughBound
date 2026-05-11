@@ -1,0 +1,22 @@
+ALTER TABLE Drivers ADD COLUMN vehicle_classes varchar(20)[];
+
+UPDATE Drivers SET vehicle_classes = ARRAY['econ','suv'] WHERE uid = 2271;
+UPDATE Drivers SET vehicle_classes = ARRAY['suv'] WHERE uid=1149; 
+UPDATE Drivers SET vehicle_classes = ARRAY['econ', 'lux'] WHERE uid = 1756;
+UPDATE Drivers SET vehicle_classes = ARRAY['econ'] WHERE uid = 1859;
+UPDATE Drivers SET vehicle_classes = ARRAY['econ', 'lux'] WHERE uid = 2038; 
+UPDATE Drivers SET vehicle_classes = ARRAY['econ', 'lux', 'suplux'] WHERE uid = 2038;
+UPDATE Drivers SET vehicle_classes = ARRAY['econ', 'suv'] WHERE uid = 2379; 
+UPDATE Drivers SET vehicle_classes = ARRAY['lux'] WHERE uid = 2683;
+UPDATE Drivers SET vehicle_classes = ARRAY['econ'] WHERE uid = 2685; 
+UPDATE Drivers SET vehicle_classes = ARRAY['suv'] WHERE uid = 2727; 
+UPDATE Drivers SET vehicle_classes = ARRAY['econ', 'lux'] WHERE uid = 2768;
+UPDATE Drivers SET vehicle_classes = ARRAY['lux'] WHERE uid = 3544; 
+UPDATE Drivers SET vehicle_classes = ARRAY['suplux'] WHERE uid = 3999;
+UPDATE Drivers SET vehicle_classes = ARRAY['suv'] WHERE uid = 4224; 
+UPDATE Drivers SET vehicle_classes = ARRAY['econ'] WHERE uid = 4661;
+UPDATE Drivers SET vehicle_classes = ARRAY['lux', 'suplux'] WHERE uid = 4668;
+UPDATE Drivers SET vehicle_classes = ARRAY['econ'] WHERE uid = 4990;
+UPDATE Drivers SET vehicle_classes = ARRAY['suv'] WHERE uid= 7462;
+UPDATE Drivers SET vehicle_classes = ARRAY['econ', 'suv'] WHERE uid = 7954; 
+UPDATE Drivers SET vehicle_classes = ARRAY['suplux'] WHERE uid = 8674; 
