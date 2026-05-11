@@ -20,3 +20,23 @@ SQLAlchemy 2.0.46: Database Management
 React 18: Frontend interface Google Maps API Latest Geolocation, route mapping
 JSON : Messages, Alerts, Updates
 Git & GitHub: Version control
+
+***
+Setup
+To apply the database schema, do the following::
+
+psql -U <uni> -h w4111a.eastus.cloudapp.azure.com proj1part2 -a -f schema/schema.sql    
+
+***
+Create virtualenv, activate it and do
+
+pip install -r requirements.txt
+	
+***
+Run
+To run the development server, do
+
+python server.py
+
+from the appropriate folder.
+
